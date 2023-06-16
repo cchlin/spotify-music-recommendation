@@ -18,7 +18,7 @@
 					<img class="rounded-4" style="width: 200px; height: 200px;" src="{{ user_image }}" alt="Profile picture">
 				{% endif %}
 				<h4 class="my-5">Welcome, {{ user_name }}</h4>
-				<button type="button" class="btn btn-lg start-btn rounded-pill" onclick="location.href='{{ select_url }}';"><span class="btn-text">START</span></button>
+				<button type="button" class="btn btn-lg start-btn rounded-pill" onclick="location.href='/select';"><span class="btn-text">START</span></button>
 			{% else %}
 				<h4 class="my-5">Welcome! Login to use the app to generate a playlist for you</h4>
 			{% endif %}
