@@ -176,20 +176,19 @@
 	$('#confirm-btn').on('click', function() {
 		let songLimit = $('#limit-input').val();
 
+		let data = { artists: selectedArtists, limit: songLimit };
+
+		let url = "api/recommendation?" + $.param(data);
+
 		$.ajax({
-			type: "POST",
-			url: "api/recommendation",
-			contentType: "application/json",
-			data: JSON.stringify({
-				'artists': selectedArtists,
-				'limit': songLimit,
-			}),
+			type: "GET",
+			url: url,
 			success: function(res) {
 				console.log('Recommendation generated successfully!');
 			},
 			error: function(err) {
 				console.log('error sending request');
-			}
+			},
 		});
 	});
 
