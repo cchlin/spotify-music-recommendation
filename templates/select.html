@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="position-absolute top-0 end-0 mt-4 me-5">
+			<button type="button" class="btn logout-btn rounded-pill" onclick="location.href='/logout';">
+				<span class="btn-text">LOG OUT</span>
+			</button>
+	</div>
+	<div class="container text-center page-content">
+		<div class="row">
+			<div class="col search-artist">
+				<div class="row">
+					<div class="col">
+						<div class="d-flex search-bar">
+							<i class="bi bi-search fs-4 search-icon"></i>
+							<input class="form-control search-field" id="search" type="text" placeholder="Select up to 5">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">			
+						<div class="d-flex flex-column">
+							<div id="result"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="row">
+				</div>
+				<div class="row">
+				</div>
+			</div>
+			<div class="col">
+				<div class="row">
+				</div>
+				<div class="row">
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$('#search').keyup(function(){
+			$.ajax({
+			type: "GET",
+			url: "/api/search",
+			data: {
+				'query': $('#search').val(),
+			},
+			success: function(res)
+			{
+				// clear existing results
+				$('#results').empty();
+
+				// append new results
+				for (let artist of res.artists.items) {
+					$('#results').append(`<p>${artist.name}</p>`);
+				}
+			}
+			});
+		});
+	});
+	</script>
+{% endblock %}

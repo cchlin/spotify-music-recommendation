@@ -4,6 +4,10 @@
 	font-family: 'Montserrat', sans-serif;
 }
 
+.page-content {
+	margin-top: 100px;
+}
+
 .login-btn, .start-btn {
 	color: #191414;
 	background-color: #1ED760;
@@ -32,4 +36,28 @@
 .btn-text {
 	font-size: 16px;
 	padding: 10px 20px 10px 20px;
+}
+
+.search-bar {
+	color: #b3b3b3;
+	background-color: #535353;
+	border-radius: 50px;
+	padding: 7px 15px 7px 15px;
+	margin: 20px;
+}
+
+.search-icon, .search-field::placeholder {
+	color: white;
+}
+
+.search-field, .search-field:focus {
+	color: white;
+	border: none;
+	background-color: #535353;
+	box-shadow: none;
+}
+
+.search-artist {
+	background-color: #212121;
+	border-radius: 10px;
 }
