@@ -61,3 +61,14 @@
 	background-color: #212121;
 	border-radius: 10px;
 }
+
+.image {
+	width: 75px;
+	height: 75px;
+	border-radius: 10px;
+}
+
+.result-card:hover {
+	background-color: #535353;
+	border-radius: 10px;
+}

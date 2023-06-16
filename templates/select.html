@@ -7,6 +7,7 @@
 	</div>
 	<div class="container text-center page-content">
 		<div class="row">
+		<!-- first column -->
 			<div class="col search-artist">
 				<div class="row">
 					<div class="col">
@@ -24,14 +25,18 @@
 					</div>
 				</div>
 			</div>
+		<!-- second column -->
 			<div class="col">
 				<div class="row">
 				</div>
 				<div class="row">
 				</div>
 			</div>
+		<!-- third column -->
 			<div class="col">
 				<div class="row">
+					<div class="col">
+					</div>
 				</div>
 				<div class="row">
 				</div>
@@ -40,22 +45,35 @@
 	</div>
 	<script>
 		$("#input").on("keyup", function(){
-			$.ajax({
-				type: "GET",
-				url: "/api/search",
-				data: {
-					'query': $('#input').val(),
-				},
-				success: function(res) {
-					// clear existing results
-					$('#results').empty();
+			let inputValue = $("#input").val();
 
-					// append new results
-					for (let artist of res.artists.items) {
-						$('#results').append(`<p>${artist.name}</p>`);
+			if (inputValue === '') {
+				$("#results").empty();
+			} else {
+				$.ajax({
+					type: "GET",
+					url: "/api/search",
+					data: {
+						'query': $('#input').val(),
+					},
+					success: function(res) {
+						// clear existing results
+						$('#results').empty();
+
+						// append new results
+						for (let artist of res) {
+							$('#results').append(`
+								<div class="my-1 result-card p-2">
+									<div class="d-flex align-items-center">
+										<img class="image me-2 " src="${artist.image}" alt="${artist.name}">
+										<p class="d-flex align-items-center ms-2 pt-3">${artist.name}</p>
+									</div>
+								</div>
+							`);
+						}
 					}
-				}
-			});
+				});
+			}
 		});
 	</script>
 {% endblock %}

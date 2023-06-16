@@ -10,5 +10,16 @@ class SearchAPI(MethodView):
 	def get(self):
 		query = request.args.get('query')
 		results = sp.search(query, type='artist')
-		return jsonify(results)
+		artists = []
+		for artist in results['artists']['items']:
+			artist_info = {
+				'id': artist['id'],
+				'name': artist['name'],
+			}
+			if artist['images']:
+				artist_info['image'] = artist['images'][0]['url']
+			else:
+				artist_info['image'] = None
+			artists.append(artist_info)
+		return jsonify(artists)
 
