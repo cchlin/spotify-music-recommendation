@@ -8,7 +8,8 @@ redirect_uri = os.environ['SPOTIFY_REDIRECT_URI']
 
 scope = 'user-read-private user-read-email'
 
-oauth = SpotifyOAuth(client_id=client_id,client_secret=client_secret,redirect_uri=redirect_uri,scope=scope,show_dialog=True)
+#oauth = SpotifyOAuth(client_id=client_id,client_secret=client_secret,redirect_uri=redirect_uri,scope=scope,show_dialog=True)
+oauth = SpotifyOAuth(client_id=client_id,client_secret=client_secret,redirect_uri=redirect_uri,scope=scope)
 
 # spotify client
 sp = spotipy.Spotify(oauth_manager=oauth)
