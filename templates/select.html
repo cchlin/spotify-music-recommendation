@@ -40,7 +40,7 @@
 					<div class="row">
 						<div class="col selected-col flex-container">
 						</div>
-						<div id="full-alert" class="alert alert-warning" role="alert" style="display: none; position: fixed; right: 20px; top: 20px;"></div>
+						<div class="full-alert alert alert-warning" role="alert"></div>
 					</div>
 					<div class="row">
 					</div>
@@ -52,7 +52,7 @@
 		let selectedArtists = [];
 
 		function showAlert(message) {
-			let alertBox = $("#full-alert");
+			let alertBox = $(".full-alert");
 			alertBox.text(message);
 			alertBox.show();
 			setTimeout(function() {
@@ -79,7 +79,7 @@
 						// append new results
 						for (let artist of res) {
 							let resultItem = $(`
-								<div class="m-2 result-card p-2">
+								<div class="m-2 result-card p-2" data-id="${artist.id}">
 									<div class="d-flex align-items-center">
 										<img class="image me-2 " src="${artist.image}" alt="${artist.name}">
 										<p class="d-flex align-items-center ms-2 pt-3">${artist.name}</p>
@@ -94,20 +94,18 @@
 								if (index === -1) {
 									if (selectedArtists.length < 5) {
 										selectedArtists.push(artist.id);
-
-										resultItem.addClass('selected');
-										
-										$('.selected-col').append(resultItem.clone());
+            							resultItem.addClass('selected');
+										let selectedElement = resultItem.clone(true);
+										selectedElement.addClass('selected-card');
+            							$('.selected-col').append(selectedElement);
 									} else {
 										showAlert('You can only select up to 5 artists.');
 										return;
 									}
 								} else {
 									selectedArtists.splice(index, 1);
-
 									resultItem.removeClass('selected');
-
-									$(`.selected-col .result-card:contains("${artist.name}")`).remove();
+									$(`.selected-col .result-card[data-id="${artist.id}"]`).remove();
 								}
 							});
 						}
@@ -115,6 +113,16 @@
 				});
 			}
 		});
+
+	$(document).on('click', 'selected-card',  function() {
+		let artisId = $(this).data("id");
+		selectedArtists = selectedArtists.filter(function(artist) {
+			return artist.id !== artistId;
+		});
+		$(this).remove();
+    	$(`#results .result-card[data-id="${artist.id}"]`).removeClass('selected');
+	});
+
 	</script>
 
 {% endblock %}
