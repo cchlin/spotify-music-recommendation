@@ -1,11 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="text-center">
-	<h1 class="mb-4">Spotify Music Recommendation</h1>
+	{% if user_name is not defined %}
+		<h1 class="mb-4">Spotify Music Recommendation</h1>
+	{% endif %}
 	<div class="position-absolute top-50 start-50 translate-middle"
 		<div class="container">
-			<h4 class="my-5">Welcome! Login to use the app to generate a playlist for you</h4>
-			<button type="button" class="btn btn-lg login-btn">Login</button>
+			{% if user_name %}
+				{% if user_image %}
+					<img class="rounded-4" style="width: 200px; height: 200px;" src="{{ user_image }}" alt="Profile pi    cture">
+				{% endif %}
+				<h4 class="my-5">Welcome, {{ user_name }}</h4>
+				<button type="button" class="btn btn-lg log-btn rounded-pill" onclick="location.href='/logout';">Logout</button>
+			{% else %}
+				<h4 class="my-5">Welcome! Login to use the app to generate a playlist for you</h4>
+				<button type="button" class="btn btn-lg log-btn rounded-pill" onclick="location.href='{{ auth_url }}';">Login</button>
+			{% endif %}
 		</div>
 	</div>
 </div>
