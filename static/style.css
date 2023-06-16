@@ -1,8 +1,19 @@
 .layoutdiv {
 	background-color: #191414;
 	color: white;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .login-btn {
+	color: #191414;
 	background-color: #1DB954;
+	transition: transform 0.3s;
 }
+
+.login-btn:hover {
+	color: #191414;
+	background-color: #1DB954 !important;
+	transform: scale(1.1);
+}
+
+
