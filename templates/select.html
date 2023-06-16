@@ -12,14 +12,14 @@
 					<div class="col">
 						<div class="d-flex search-bar">
 							<i class="bi bi-search fs-4 search-icon"></i>
-							<input class="form-control search-field" id="search" type="text" placeholder="Select up to 5">
+							<input class="form-control search-field" id="input" type="text" placeholder="Select up to 5">
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col">			
 						<div class="d-flex flex-column">
-							<div id="result"></div>
+							<div id="results"></div>
 						</div>
 					</div>
 				</div>
@@ -38,30 +38,24 @@
 			</div>
 		</div>
 	</div>
-{% endblock %}
-{% block scripts %}
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script>
-	$(document).ready(function(){
-		$('#search').keyup(function(){
+		$("#input").on("keyup", function(){
 			$.ajax({
-			type: "GET",
-			url: "/api/search",
-			data: {
-				'query': $('#search').val(),
-			},
-			success: function(res)
-			{
-				// clear existing results
-				$('#results').empty();
+				type: "GET",
+				url: "/api/search",
+				data: {
+					'query': $('#input').val(),
+				},
+				success: function(res) {
+					// clear existing results
+					$('#results').empty();
 
-				// append new results
-				for (let artist of res.artists.items) {
-					$('#results').append(`<p>${artist.name}</p>`);
+					// append new results
+					for (let artist of res.artists.items) {
+						$('#results').append(`<p>${artist.name}</p>`);
+					}
 				}
-			}
 			});
 		});
-	});
 	</script>
 {% endblock %}
