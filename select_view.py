@@ -51,4 +51,4 @@ class RecommendationAPI(MethodView):
 
 			session['tracks'] = tracks
 
-		return redirect(url_for('result'))
+		return jsonify({'redirect_url': url_for('result')})

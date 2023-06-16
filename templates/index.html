@@ -6,12 +6,8 @@
 			<div class="position-absolute top-0 end-0 mt-4 me-5">
 				<button type="button" class="btn logout-btn rounded-pill" onclick="location.href='/logout';"><span class="btn-text">LOG OUT</span></button>
 			</div>
-		{% else %}
-			<h1 class="mb-4">Spotify Music Recommendation</h1>
-			<div class="position-absolute top-0 end-0 mt-4 me-5">
-				<button type="button" class="btn login-btn rounded-pill" onclick="location.href='{{ auth_url }}';"><span class="btn-text">LOGIN</span></button>
-			</div>
 		{% endif %}
+		<h1 class="mb-4">Spotify Music Recommendation</h1>
 		<div class="position-absolute top-50 start-50 translate-middle">
 			{% if user_name %}
 				{% if user_image %}
@@ -21,6 +17,7 @@
 				<button type="button" class="btn btn-lg start-btn rounded-pill" onclick="location.href='/select';"><span class="btn-text">START</span></button>
 			{% else %}
 				<h4 class="my-5">Welcome! Login to use the app to generate a playlist for you</h4>
+				<button type="button" class="btn btn-lg login-btn rounded-pill" onclick="location.href='{{ auth_url }}';"><span class="btn-text">LOGIN</span></button>
 			{% endif %}
 		</div>
 	</div>
