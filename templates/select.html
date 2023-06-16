@@ -43,6 +43,7 @@
 						<div class="full-alert alert alert-warning" role="alert"></div>
 					</div>
 					<div class="row">
+						<button id="confirm-btn" class="mt-2 btn btn-lg start-btn rounded-pill mx-auto" style="display: none; transform: scale(0.9);">GO</button>
 					</div>
 				</div>
 			</div>
@@ -98,6 +99,10 @@
 										let selectedElement = resultItem.clone(true);
 										selectedElement.addClass('selected-card');
             							$('.selected-col').append(selectedElement);
+
+										if (selectedArtists.length === 1) {
+											$('#confirm-btn').show();
+										}
 									} else {
 										showAlert('You can only select up to 5 artists.');
 										return;
@@ -106,6 +111,10 @@
 									selectedArtists.splice(index, 1);
 									resultItem.removeClass('selected');
 									$(`.selected-col .result-card[data-id="${artist.id}"]`).remove();
+
+									if (selectedArtists.length === 0) {
+										$('#confirm-btn').hide();
+									}
 								}
 							});
 						}
