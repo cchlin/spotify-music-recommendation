@@ -1,27 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="text-center">
-	{% if user_name %}
-		<div class="container">
+	<div class="container">
+		{% if user_name %}
 			<div class="position-absolute top-0 end-0 mt-4 me-5">
 				<button type="button" class="btn logout-btn rounded-pill" onclick="location.href='/logout';"><span class="btn-text">LOG OUT</span></button>
 			</div>
-			<div class="position-absolute top-50 start-50 translate-middle">
+		{% else %}
+			<h1 class="mb-4">Spotify Music Recommendation</h1>
+			<div class="position-absolute top-0 end-0 mt-4 me-5">
+				<button type="button" class="btn login-btn rounded-pill" onclick="location.href='{{ auth_url }}';"><span class="btn-text">LOGIN</span></button>
+			</div>
+		{% endif %}
+		<div class="position-absolute top-50 start-50 translate-middle">
+			{% if user_name %}
 				{% if user_image %}
 					<img class="rounded-4" style="width: 200px; height: 200px;" src="{{ user_image }}" alt="Profile picture">
 				{% endif %}
 				<h4 class="my-5">Welcome, {{ user_name }}</h4>
 				<button type="button" class="btn btn-lg start-btn rounded-pill" onclick="location.href='{{ select_url }}';"><span class="btn-text">START</span></button>
-			</div>
-		</div>
-	{% else %}
-		<div class="container">
-			<h1 class="mb-4">Spotify Music Recommendation</h1>
-			<div class="position-absolute top-50 start-50 translate-middle">
+			{% else %}
 				<h4 class="my-5">Welcome! Login to use the app to generate a playlist for you</h4>
-				<button type="button" class="btn btn-lg login-btn rounded-pill" onclick="location.href='{{ auth_url }}';"><span class="btn-text">LOGIN</span></button>
-			</div>
+			{% endif %}
 		</div>
-	{% endif %}
+	</div>
 </div>
 {% endblock %}

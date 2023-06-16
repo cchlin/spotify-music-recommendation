@@ -4,13 +4,13 @@
 	font-family: 'Montserrat', sans-serif;
 }
 
-.login-btn {
+.login-btn, .start-btn {
 	color: #191414;
 	background-color: #1ED760;
 	transition: transform 0.3s;
 }
 
-.login-btn:hover {
+.login-btn:hover, .start-btn:hover {
 	color: #191414;
 	background-color: #1ED760 !important;
 	transform: scale(1.1);
@@ -27,4 +27,9 @@
 	color: #191414;
 	background-color: white !important;
 	transform: scale(1.1);
+}
+
+.btn-text {
+	font-size: 16px;
+	padding: 10px 20px 10px 20px;
 }
