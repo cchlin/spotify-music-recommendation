@@ -9,6 +9,21 @@
 		<div class="row">
 		<!-- first column -->
 			<div class="col">
+				<div class="song-select" style="display: none;">
+					<div class="d-flex my-auto flex-column justify-centent-center">
+						<p class="fs-3 d-flex justify-content-center">How many songs?</p>
+						<button id="increment-btn" class="my-3 btn btn-lg start-btn rounded-pill mx-auto" style="transform: scale(0.9);">
+							<i class="bi bi-chevron-up"></i>
+						</button>
+						<input type="text" pattern="[0-9]*" id="limit-input" class="form-control" value="10" min="10" max="200" style="width: 100px; margin: auto; text-align: center;">
+						<button id="decrement-btn" class="my-3 btn btn-lg start-btn rounded-pill mx-auto" style="transform: scale(0.9);">
+							<i class="bi bi-chevron-down"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		<!-- second column -->
+			<div class="col">
 				<div class="card-column">
 					<div class="row">
 						<div class="col">
@@ -27,13 +42,6 @@
 					</div>
 				</div>
 			</div>
-		<!-- second column -->
-			<div class="col">
-				<div class="row">
-				</div>
-				<div class="row">
-				</div>
-			</div>
 		<!-- third column -->
 			<div class="col">
 				<div class="card-column">
@@ -50,6 +58,7 @@
 		</div>
 	</div>
 	<script>
+		
 		let selectedArtists = [];
 
 		function showAlert(message) {
@@ -101,6 +110,7 @@
             							$('.selected-col').append(selectedElement);
 
 										if (selectedArtists.length === 1) {
+											$('.song-select').show();
 											$('#confirm-btn').show();
 										}
 									} else {
@@ -113,6 +123,7 @@
 									$(`.selected-col .result-card[data-id="${artist.id}"]`).remove();
 
 									if (selectedArtists.length === 0) {
+										$('.song-select').hide();
 										$('#confirm-btn').hide();
 									}
 								}
@@ -124,7 +135,7 @@
 		});
 
 	$(document).on('click', 'selected-card',  function() {
-		let artisId = $(this).data("id");
+		let artistId = $(this).data("id");
 		selectedArtists = selectedArtists.filter(function(artist) {
 			return artist.id !== artistId;
 		});
@@ -132,6 +143,55 @@
     	$(`#results .result-card[data-id="${artist.id}"]`).removeClass('selected');
 	});
 
-	</script>
+	$('#increment-btn').on('click', function() {
+		let inputVal = $('#limit-input').val();
+		if (inputVal < 200) {
+			$('#limit-input').val(++inputVal);
+    	}
+	});
 
+	$('#decrement-btn').on('click', function() {
+    	let inputVal = $('#limit-input').val();
+		if (inputVal > 10) {
+			$('#limit-input').val(--inputVal);
+		}
+	});
+
+	$('#limit-input').on('change', function() {
+		let inputVal = $(this).val();
+
+		if (inputVal >= 10 && inputVal <= 200) {
+			localStorage.setItem('limit', inputVal);
+		} else {
+			if (inputVal < 10) {
+				$(this).val(10);
+			} else if (inputVal > 200) {
+				$(this).val(200);
+			}
+
+			localStorage.setItem('limit', $(this).val());
+		}
+	});
+
+	$('#confirm-btn').on('click', function() {
+		let songLimit = $('#limit-input').val();
+
+		$.ajax({
+			type: "POST",
+			url: "api/recommendation",
+			contentType: "application/json",
+			data: JSON.stringify({
+				'artists': selectedArtists,
+				'limit': songLimit,
+			}),
+			success: function(res) {
+				console.log('Recommendation generated successfully!');
+			},
+			error: function(err) {
+				console.log('error sending request');
+			}
+		});
+	});
+
+	</script>
 {% endblock %}

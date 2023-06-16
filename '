@@ -38,7 +38,7 @@
 	padding: 10px 20px 10px 20px;
 }
 
-#limit-input, .search-bar {
+.search-bar {
 	color: #b3b3b3;
 	background-color: #535353;
 	border-radius: 50px;
@@ -50,7 +50,7 @@
 	color: white;
 }
 
-#limit-input, .search-field, .search-field:focus {
+.search-field, .search-field:focus {
 	color: white;
 	border: none;
 	background-color: #535353;
@@ -96,7 +96,6 @@
 	color: black;
 }
 
-#increment-btn, #decrement-btn {
+.increment-btn, .decrement-btn {
 	width: 150px;
 }
-
