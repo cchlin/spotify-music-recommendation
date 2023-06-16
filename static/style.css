@@ -57,7 +57,7 @@
 	box-shadow: none;
 }
 
-.search-artist {
+.card-column {
 	background-color: #212121;
 	border-radius: 10px;
 }
@@ -71,4 +71,19 @@
 .result-card:hover {
 	background-color: #535353;
 	border-radius: 10px;
+}
+
+.selected {
+	border-radius: 10px;
+	background-color: #1DB954;
+}
+
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.flex-container .result-card {
+	flex: 0 1 40%;
 }

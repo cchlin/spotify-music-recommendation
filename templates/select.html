@@ -8,19 +8,21 @@
 	<div class="container text-center page-content">
 		<div class="row">
 		<!-- first column -->
-			<div class="col search-artist">
-				<div class="row">
-					<div class="col">
-						<div class="d-flex search-bar">
-							<i class="bi bi-search fs-4 search-icon"></i>
-							<input class="form-control search-field" id="input" type="text" placeholder="Select up to 5">
+			<div class="col">
+				<div class="card-column">
+					<div class="row">
+						<div class="col">
+							<div class="d-flex search-bar">
+								<i class="bi bi-search fs-4 search-icon"></i>
+								<input class="form-control search-field" id="input" type="text" placeholder="Select up to 5">
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col">			
-						<div class="d-flex flex-column">
-							<div id="results"></div>
+					<div class="row">
+						<div class="col">			
+							<div class="d-flex flex-column">
+								<div id="results"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -34,16 +36,30 @@
 			</div>
 		<!-- third column -->
 			<div class="col">
-				<div class="row">
-					<div class="col">
+				<div class="card-column">
+					<div class="row">
+						<div class="col selected-col flex-container">
+						</div>
+						<div id="full-alert" class="alert alert-warning" role="alert" style="display: none; position: fixed; right: 20px; top: 20px;"></div>
 					</div>
-				</div>
-				<div class="row">
+					<div class="row">
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
+		let selectedArtists = [];
+
+		function showAlert(message) {
+			let alertBox = $("#full-alert");
+			alertBox.text(message);
+			alertBox.show();
+			setTimeout(function() {
+				alertBox.hide();
+			}, 3000);
+		}
+
 		$("#input").on("keyup", function(){
 			let inputValue = $("#input").val();
 
@@ -62,18 +78,43 @@
 
 						// append new results
 						for (let artist of res) {
-							$('#results').append(`
-								<div class="my-1 result-card p-2">
+							let resultItem = $(`
+								<div class="m-2 result-card p-2">
 									<div class="d-flex align-items-center">
 										<img class="image me-2 " src="${artist.image}" alt="${artist.name}">
 										<p class="d-flex align-items-center ms-2 pt-3">${artist.name}</p>
 									</div>
 								</div>
 							`);
+
+							$('#results').append(resultItem);
+
+							resultItem.on('click', function() {
+								let index = selectedArtists.indexOf(artist.id);
+								if (index === -1) {
+									if (selectedArtists.length < 5) {
+										selectedArtists.push(artist.id);
+
+										resultItem.addClass('selected');
+										
+										$('.selected-col').append(resultItem.clone());
+									} else {
+										showAlert('You can only select up to 5 artists.');
+										return;
+									}
+								} else {
+									selectedArtists.splice(index, 1);
+
+									resultItem.removeClass('selected');
+
+									$(`.selected-col .result-card:contains("${artist.name}")`).remove();
+								}
+							});
 						}
 					}
 				});
 			}
 		});
 	</script>
+
 {% endblock %}
