@@ -6,8 +6,8 @@ class Result(MethodView):
 		if 'tracks' in session:
 			songs = session['tracks']
 			for song in songs:
-				print("name: ", song['artists'])
-			print(songs)
-			return render_template('result.html', songs=songs)
+				print(song)
+				print("\n")
+			return render_template('/result.html', songs=songs)
 		else:
 			return render_template('select.html')

@@ -15,7 +15,7 @@
 						<button id="increment-btn" class="my-3 btn btn-lg start-btn rounded-pill mx-auto" style="transform: scale(0.9);">
 							<i class="bi bi-chevron-up"></i>
 						</button>
-						<input type="text" pattern="[0-9]*" id="limit-input" class="form-control" value="10" min="10" max="200" style="width: 100px; margin: auto; text-align: center;">
+						<input type="text" pattern="[0-9]*" id="limit-input" class="form-control" value="20" min="10" max="200" style="width: 100px; margin: auto; text-align: center;">
 						<button id="decrement-btn" class="my-3 btn btn-lg start-btn rounded-pill mx-auto" style="transform: scale(0.9);">
 							<i class="bi bi-chevron-down"></i>
 						</button>
@@ -184,7 +184,8 @@
 			type: "GET",
 			url: url,
 			success: function(res) {
-				console.log('Recommendation generated successfully!');
+				if (res.redirect_url)
+					window.location.href = res.redirect_url;
 			},
 			error: function(err) {
 				console.log('error sending request');

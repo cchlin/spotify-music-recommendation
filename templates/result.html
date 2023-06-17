@@ -1,5 +1,68 @@
 {% extends "layout.html" %}
 {% block content %}
-	<h1> Result page </p>
-	{{ songs }}
+	<div class="position-absolute top-0 end-0 mt-4 me-5">
+		<button type="button" class="btn logout-btn rounded-pill" onclick="location.href='/logout';"><span class="btn-text">LOG OUT</span></button>
+        </div>
+	<div class="m-auto w-75 page-content">
+		{% for song in songs %}
+		<div class="row m-3 rec-item">
+			<div class="col">
+				<div class="d-flex">
+					<div class="align-self-center m-2">
+						<button id="play-pause" class="rounded-circle btn-lg prev-btn" onclick="playPauseSong('{{ song.preview }}')"><i id="play-pausse" class="bi bi-play-circle-fill"></i></button>
+					</div>
+					<div class="">
+						<img class="image" src="{{ song.image }}" alt="{{ song.name }}" >
+					</div>
+					<div class="rec-card align-self-center m-3">
+						<div class="row" style="font-size: 14px;">
+							<span class="">{{ song.name }}</span>
+						</div>
+						<div class="row" style="font-size: 11px;">
+							<span class="">{{ song.artists | join(", ") }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="d-flex flex-nowrap">
+					<div class="my-auto me-auto rec-card" style="font-size: 16px; padding-top: 20px;">
+						<span class="me-auto my-auto text-start">{{ song.album }}</span>
+					</div>
+					<div class="ms-auto my-auto text-end" style="font-size: 13px; font-color: #b3b3b3; width:50px; padding-top: 25px;">
+						<span class="ms-auto text-end my-auto">{{ song.length }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<script>
+		let audio = new Audio();
+		let isPlaying = flase;
+		 
+		function playPauseSong(url) {
+			if (!isPlaying) {
+				playSong(url);
+			} else {
+				pauseSong();
+			}
+		}
+
+		function playSong(url) {
+
+			if (audio.src !== url) {
+				audio.src = url;
+			}
+			audio.play();
+			isPlaying = true;
+			document.getelementById("play-pause").className = "bi bi-pause-circle-fill";
+		}
+
+		function pauseSong() {
+			audio.pause();
+			isPlaying = false;
+			document.getElementById("play-pause").className = "bi bi-play-circle-fill";
+		}
+	</script>
 {% endblock %}

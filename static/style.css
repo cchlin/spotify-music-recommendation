@@ -5,16 +5,22 @@
 }
 
 .page-content {
-	margin-top: 100px;
+	margin-top: 150px;
 }
 
-.login-btn, .start-btn {
+.prev-btn {
+	border: none;
+	width: 35px;
+	height: 35px;
+}
+
+.login-btn, .start-btn, .prev-btn {
 	color: #191414;
 	background-color: #1ED760;
 	transition: transform 0.3s;
 }
 
-.login-btn:hover, .start-btn:hover {
+.login-btn:hover, .start-btn:hover, .prev-btn:hover {
 	color: #191414;
 	background-color: #1ED760 !important;
 	transform: scale(1.1);
@@ -100,3 +106,8 @@
 	width: 150px;
 }
 
+.t {
+	border-style: solid;
+	border-width: 1px;
+	border-color: blue;
+}

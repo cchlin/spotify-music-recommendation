@@ -41,11 +41,18 @@ class RecommendationAPI(MethodView):
 
 		tracks = []
 		for track in results['tracks']:
+			length_seconds = track['duration_ms'] / 1000
+			minutes, seconds = divmod(length_seconds, 60)
+			formatted_length = f"{int(minutes)}:{int(seconds):02}"
+
 			track_info = {
 				'id': track['id'],
 				'name': track['name'],
 				'artists': [artist['name'] for artist in track['artists']],
-				'url': track['external_urls']['spotify']
+				'album': track['album']['name'],
+				'length': formatted_length,
+				'preview': track.get('preview_url'),
+				'image': track['album']['images'][-1]['url']
 			}
 			tracks.append(track_info)
 
