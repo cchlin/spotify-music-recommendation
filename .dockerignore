@@ -1,0 +1,17 @@
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.env
+.git
+.gitignore
+.dockerignore
+*.log
+*.sqlite
+*.pyc
+*Dockerfile*
+*docker-compose*
+*README*
+test/
+tests/
+
