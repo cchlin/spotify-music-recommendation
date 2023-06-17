@@ -28,4 +28,4 @@ app.add_url_rule('/api/create_playlist', view_func=CreatePlaylist.as_view('creat
 app.add_url_rule('/logout', view_func=Logout.as_view('logout'), methods=['GET'])
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=5000, debug=True)
+	app.run(host='0.0.0.0', port=8080, debug=True)
