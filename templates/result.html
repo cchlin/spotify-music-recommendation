@@ -4,6 +4,9 @@
 		<button type="button" class="btn logout-btn rounded-pill" onclick="location.href='/logout';"><span class="btn-text">LOG OUT</span></button>
         </div>
 	<div class="m-auto w-75 page-content">
+		<button type="button" class="btn btn-lg start-btn rounded-pill" onclick="createPlaylist()">
+			<span class="btn-text">CREATE PLAYLIST</span>
+		</button>
 		{% for song in songs %}
 		<div class="row m-3 rec-item">
 			<div class="col">
@@ -38,8 +41,35 @@
 		{% endfor %}
 	</div>
 	<script>
+		let songURIs = [];
+		{% for song in songs %}
+			songURIs.push('{{ song.uri }}');
+		{% endfor %}
+
+		function createPlaylist() {
+			$.ajax({
+				type: "POST",
+				url: "api/create_playlist",
+				data: JSON.stringify({
+					uris: songURIs,		
+				}),
+				contentType: 'application/json',
+				success: function(data) {
+					if (data.status === 'success') {
+						console.log("successfully created playlist");
+					} else {
+						console.log("error creating playlist");
+					}
+				},
+				error: function(err) {
+					console.error("error", err);
+				}
+			});
+		};
+
+
 		let audio = new Audio();
-		let isPlaying = flase;
+		let isPlaying = false;
 		 
 		function playPauseSong(url) {
 			if (!isPlaying) {
@@ -56,7 +86,7 @@
 			}
 			audio.play();
 			isPlaying = true;
-			document.getelementById("play-pause").className = "bi bi-pause-circle-fill";
+			document.getElementById("play-pause").className = "bi bi-pause-circle-fill";
 		}
 
 		function pauseSong() {
