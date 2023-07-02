@@ -14,6 +14,6 @@ oauth = SpotifyOAuth(client_id=client_id,client_secret=client_secret,redirect_ur
 # spotify client
 sp = spotipy.Spotify(oauth_manager=oauth)
 
-#def get_auth_url():
-#	auth_url = oauth.get_authorize_url()
-#	return auth_url
+def get_auth_url():
+	auth_url = oauth.get_authorize_url()
+	return auth_url
